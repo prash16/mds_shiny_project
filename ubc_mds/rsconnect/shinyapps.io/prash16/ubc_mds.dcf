@@ -5,8 +5,8 @@ account: prash16
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 259038
-bundleId: 1186027
+bundleId: 1186153
 url: https://prash16.shinyapps.io/ubc_mds/
-when: 1516573284.38675
+when: 1516582142.23577
 asMultiple: FALSE
 asStatic: FALSE

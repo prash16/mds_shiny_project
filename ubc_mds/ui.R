@@ -1,19 +1,17 @@
+
+
+#Libraries 
 library(shiny)
-library(ggplot2)
-library(dplyr)
-library(devtools)
 library(colourpicker)
 library(shinythemes)
+library(ggthemes)
 
-
-
+# Main Shiny page 
 shinyUI(fluidPage(theme = shinytheme("cosmo"),
-                  
-                  br(),
-                  titlePanel("Tabsets"),
-                  
-                  sidebarLayout(
-                    
+        br(),
+       titlePanel("Crime app"),
+     # Slide bar layout       
+       sidebarLayout(
                     sidebarPanel(
                       h4("Year"),
                       sliderInput('year', 'Year Range', 
@@ -21,22 +19,25 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
                                   step=5, sep=""),
                       br(),
                       selectInput("dep","Cities",unique(marshall$department_name),selected = "Cities"),
-                      selectInput("crime","Type of Crime",crimesgroup),
                       selectInput("dep1","Comparing Cities",unique(marshall$department_name),
-                                  selected = "Cities")),
+                                  selected = "Cities"),
+                      
+                      #h3("Labels"),
+                      #checkboxInput("scale", "Labels", value = FALSE),
+                      selectInput("crime","Type of Crime",crimesgroup)
+                    ),
                     
                     
                     mainPanel( tabsetPanel(
                       tabPanel("Plot", plotlyOutput("distPlot"),
                                br(), br(),
                                tableOutput("results")), # first tab 
-                      
-                      
                       tabPanel("Plot2", plotlyOutput("barplot")), 
-                      tabPanel("Analysis", tableOutput("table"))
-                    )
+                      
+                      tabPanel("Data",  DT::dataTableOutput("Crimeresults")
+                      )
                     )  # Inputs excluded for brevity
+                    )
+                    
                   )
-                  
-)
-)
+))

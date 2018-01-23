@@ -4,11 +4,16 @@
 
 shinyServer(function(input, output,session) {
   
+  table2<-reactive({
+    marshall_w %>%
+      filter(year >= input$year[1],
+             year <= input$year[2],
+             department_name %in% c(input$dep, input$dep1)) %>% 
+      select(year,department_name,total_pop,crimesgroup) %>% 
+      rename(Year=year,City=department_name,Population=total_pop,Homicides=homs_per_100k,Rapes=rape_per_100k,
+             Robbery=rob_per_100k,TotalCrime=tot100k,AggrevatedAssaults=agg_ass_per_100k)  
+  })
   
-  table2 <- reactive({marshall_w %>% 
-      select_("year","department_name",input$crime) %>% 
-      filter(year >= input$year[1], year <= input$year[2],
-             department_name %in% c(input$dep, input$dep1))})
   
   
   output$distPlot <- renderPlotly({
@@ -72,6 +77,14 @@ shinyServer(function(input, output,session) {
     p1 <- ggplotly(p1)
     ###code ends here 
   })
+  
+
+  output$Crimeresults <- renderDataTable({
+    table2()
+  })
+  
+  
+  
   output$results <- renderTable(width = "800",{
     filtered <-
       marshall_w %>%
