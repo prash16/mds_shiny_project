@@ -1,5 +1,5 @@
 
-
+#
 
 
 shinyServer(function(input, output,session) {
@@ -9,9 +9,9 @@ shinyServer(function(input, output,session) {
       filter(year >= input$year[1],
              year <= input$year[2],
              department_name %in% c(input$dep, input$dep1)) %>% 
-        select(year,department_name,total_pop,crimesgroup) %>% 
-      rename(Year=year,City=department_name,Population=total_pop,Homicides=homs_per_100k,Rapes=rape_per_100k,
-             Robbery=rob_per_100k,AggrevatedAssaults=agg_ass_per_100k)  
+        select(year,department_name, homs_sum, rape_sum ,rob_sum ,agg_ass_sum, violent_crime,pop) %>% 
+      rename(Year=year,City=department_name,Population=pop,Homicides=homs_sum,Rapes=rape_sum,
+             Robbery=rob_sum,AggrevatedAssaults=agg_ass_sum)  
 
   })
   
