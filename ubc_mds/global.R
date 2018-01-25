@@ -8,6 +8,7 @@ library(shinythemes)
 library(tidyverse)
 library(plotly)
 library(DT)
+library(devtools)
 
 #reading the data set 
 

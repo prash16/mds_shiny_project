@@ -1,17 +1,26 @@
+
+
+#Libraries 
 library(shiny)
-library(ggplot2)
-library(dplyr)
-library(devtools)
 library(colourpicker)
 library(shinythemes)
 library(ggthemes)
 
+<<<<<<< HEAD
 shinyUI(fluidPage(theme = shinytheme("cosmo"),
              
                   titlePanel("Crime app"),
                   
                   sidebarLayout(
                     
+=======
+# Main Shiny page 
+shinyUI(fluidPage(theme = shinytheme("cosmo"),
+        br(),
+       titlePanel("Crime app"),
+     # Slide bar layout       
+       sidebarLayout(
+>>>>>>> cb9a8190131214fb728ce6b99c16650a22ed35f3
                     sidebarPanel(
                       
                       checkboxGroupInput("usregions", h3("US Regions"),
@@ -27,6 +36,7 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
                       selectInput("dep1","Comparing Cities",unique(marshall$department_name),
                                   selected = "Cities"),
                       
+<<<<<<< HEAD
                       h3("National Average"),
                       checkboxInput("scale", "Labels", value = FALSE)
                     ),
@@ -44,6 +54,23 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
                       tabPanel("Data",  DT::dataTableOutput("Crimeresults")
                       )
                     )  
+=======
+                      #h3("Labels"),
+                      #checkboxInput("scale", "Labels", value = FALSE),
+                      selectInput("crime","Type of Crime",crimesgroup)
+                    ),
+                    
+                    
+                    mainPanel( tabsetPanel(
+                      tabPanel("Plot", plotlyOutput("distPlot"),
+                               br(), br(),
+                               tableOutput("results")), # first tab 
+                      tabPanel("Plot2", plotlyOutput("barplot")), 
+                      
+                      tabPanel("Data",  DT::dataTableOutput("Crimeresults")
+                      )
+                    )  # Inputs excluded for brevity
+>>>>>>> cb9a8190131214fb728ce6b99c16650a22ed35f3
                     )
                     
                   )
