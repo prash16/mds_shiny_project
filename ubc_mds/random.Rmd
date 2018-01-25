@@ -1,0 +1,72 @@
+---
+title: "test"
+author: "prash"
+date: '2018-01-23'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+
+plot_data <- marshall_filter %>% filter(year >= 1975, year <= 2015)  %>%  group_by(region, year) %>%
+        summarise(custom = sum(rape_sum), na.rm = TRUE)
+      plot_data %>% 
+        plot_ly(x = ~year, y = ~custom, type = 'scatter', 
+                mode = "lines+markers", split = ~region,  text = ~paste("Total Crime In ", region))
+
+```
+
+
+
+
+## Including Plots
+```{r}
+marshall_states <- marshall_filter %>% 
+ # select(region,code,year) %>% 
+  group_by(region,code) %>% summarise()
+
+
+states <- read_csv("states.csv")
+
+
+
+new_data <- left_join(marshall_filter,states,by="code")
+
+new_data1 <- new_data %>% group_by(coast, year,coast) %>% summarise(pop = sum(total_pop, na.rm = TRUE), rape = sum(rape_sum, na.rm = TRUE), assault = sum(agg_ass_sum, na.rm = TRUE),
+robbery = sum(rob_sum, na.rm = TRUE), homicide = sum(homs_sum, na.rm = TRUE), violent = sum(violent_crime, na.rm = TRUE))
+
+
+new_data1 %>% 
+        plot_ly(x = ~year, y = ~violent, type = 'scatter', 
+                mode = "lines+markers", split = ~coast,  text = ~paste("Total Crime In "))
+
+
+new_data1 %>% 
+        plot_ly(x = ~year, y = ~violent, type = 'scatter', 
+                mode = "lines+markers", split = ~coast,  text = ~paste("Total Crime In "))
+
+```
+
+
+```{r}
+p <- plot_ly(new_data1, y = ~violent, color = ~coast, type = "box")
+
+p
+```
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
