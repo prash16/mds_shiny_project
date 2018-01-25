@@ -9,15 +9,10 @@ shinyServer(function(input, output,session) {
       filter(year >= input$year[1],
              year <= input$year[2],
              department_name %in% c(input$dep, input$dep1)) %>% 
-<<<<<<< HEAD
-      select(year,department_name,pop,crimesgroup) %>%  
-      rename(Year=year,City=department_name,Population=pop,Homicides=homicide,Rapes=rape,
-             Robbery=robbery,AggrevatedAssaults=assault)  
-=======
-      select(year,department_name,total_pop,crimesgroup) %>% 
+        select(year,department_name,total_pop,crimesgroup) %>% 
       rename(Year=year,City=department_name,Population=total_pop,Homicides=homs_per_100k,Rapes=rape_per_100k,
-             Robbery=rob_per_100k,TotalCrime=tot100k,AggrevatedAssaults=agg_ass_per_100k)  
->>>>>>> cb9a8190131214fb728ce6b99c16650a22ed35f3
+             Robbery=rob_per_100k,AggrevatedAssaults=agg_ass_per_100k)  
+
   })
   
   
@@ -66,7 +61,7 @@ shinyServer(function(input, output,session) {
     p1 <- ggplotly(p1)
     ###code ends here 
   })
-<<<<<<< HEAD
+
 
 
   
@@ -103,15 +98,14 @@ new_data1 %>%
     
   
 ## render table , pushed in milestone 2, not using anymore ###
-=======
-  
+
 
   output$Crimeresults <- renderDataTable({
     table2()
   })
   
   
->>>>>>> cb9a8190131214fb728ce6b99c16650a22ed35f3
+
   
   output$results <- renderTable(width = "800",{
     filtered <-
