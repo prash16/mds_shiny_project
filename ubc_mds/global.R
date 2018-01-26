@@ -43,6 +43,10 @@ summarise(pop = sum(total_pop, na.rm = TRUE),
           homicide = sum(homs_per_100k, na.rm = TRUE),
           violent = sum(violent_per_100k, na.rm = TRUE))
 
+new_data2 <-  new_data1 %>% 
+  gather(key="crimespot",value="crimetype2",rape,assault,robbery ,homicide)
+  
+
 # crime choice for sum more wrangling
 
 colnames(marshall_w)[8:13] <- c("pop", "violent", "homicide", "rape", "robbery", "assault")

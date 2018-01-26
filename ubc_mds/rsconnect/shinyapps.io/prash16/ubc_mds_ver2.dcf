@@ -1,0 +1,12 @@
+name: ubc_mds_ver2
+title: ubc_mds_ver2
+username:
+account: prash16
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 262074
+bundleId: 1193719
+url: https://prash16.shinyapps.io/ubc_mds_ver2/
+when: 1516933469.5405
+asMultiple: FALSE
+asStatic: FALSE

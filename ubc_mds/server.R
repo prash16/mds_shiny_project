@@ -15,10 +15,27 @@ shinyServer(function(input, output,session) {
 
   })
   
+  activeTab <- reactive({input$tabs})
+  
+  output$dep <- renderUI({
+    if (activeTab() != 'Regions') {
+      selectInput("dep","Cities",unique(marshall$department_name),selected = "Cities") 
+    }
+  })
+  
+  output$dep1 <- renderUI({
+    if (activeTab() != 'Regions') {
+      selectInput("dep1","Comparing Cities",unique(marshall$department_name),
+                  selected = "Cities")
+    }
+  })
   
   
   output$distPlot <- renderPlotly({
     
+    if (is.null(input$dep) | is.null(input$dep1)) {
+      return(NULL)
+    }
     
     response_variable = input$crime
     
@@ -35,7 +52,6 @@ shinyServer(function(input, output,session) {
            y = paste(names(crimesgroup[crimesgroup == input$crime])))
     
     #if (input$avg) {geom_line(data=marshall_w%>% filter(department_name == "National"),aes_string("x=year", y=response_variable))}
-    
     
     p <- ggplotly(p)
     
@@ -69,30 +85,29 @@ shinyServer(function(input, output,session) {
   
   output$boxplot <- renderPlotly({
 new_data1 %>% 
-  filter(year >= input$year[1], year <= input$year[2]) %>% 
-  plot_ly( y = ~get(input$crime), color = ~coast, type = "box")
-  
+  filter(year >= input$year[1], year <= input$year[2],coast %in% input$usregions) %>% 
+  plot_ly( y = ~get(input$crime), color = ~coast, type = "box") 
   })  
-  
   
 ### Box plot ends here 
   
-  
-
 # Line plot for regions ####
   output$lineplotus <- renderPlotly({ 
   new_data1 %>% 
-    filter(year >= input$year[1], year <= input$year[2]) %>% 
+    filter(year >= input$year[1], year <= input$year[2],
+           coast %in% input$usregions) %>% 
     plot_ly(x = ~year, y =   ~get(input$crime) , type = 'scatter', 
             mode = "lines+markers", split = ~coast,  text = ~paste("Total Crime In "))
-  })    
+  })  
+  
 
+  
   #~coast
 # Render table #### in page 3 
   
   output$Crimeresults <- renderDataTable({
     table2()
-  })
+  }) 
 
 ### render table code ends 
     
@@ -127,5 +142,4 @@ tabsetPanel(position = "below",
             tabPanel("Summary", verbatimTextOutput("summary")), 
             tabPanel("Table", tableOutput("table"))
 )
-
 
