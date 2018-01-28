@@ -10,6 +10,10 @@ To try to fill this gap, The Marshall Project collected and analyzed more than 4
  I tried visualizing the stats and give a a user friendly interface. User can compare crime between different US regions or differnt cities. 
  
 
+
+Deployed  shiny app can be found here [app](https://prash16.shinyapps.io/ubc_mds_ver2/).  
+
+
 [Marshall - Data source](https://github.com/themarshallproject/city-crime)
 
 [Crime -Analysis shiny app](https://prash16.shinyapps.io/ubc_mds_ver2/)
