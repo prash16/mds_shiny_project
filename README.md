@@ -1,7 +1,5 @@
-# mds_shiny_project
-Building a shiny app
 
-
+Crime Analysis US : Shiny app 
 
 
 Is crime in America rising or falling? The answer is not nearly as simple as politicians make it out to be, because of how the FBI collects crime data from the country’s more than 18,000 police agencies. Even at their best, national estimates can be inconsistent and out of date, as the FBI takes months or years to piece together reports from those agencies that choose to participate in the voluntary program.
