@@ -11,7 +11,7 @@ library(DT)
 library(devtools)
 
 #reading the data set 
-#
+
 marshall <- read_csv("ucr_crime_1975_2015.csv")
 
 marshall_filter <- read_csv("filter.csv")
@@ -43,12 +43,14 @@ summarise(pop = sum(total_pop, na.rm = TRUE),
           homicide = sum(homs_per_100k, na.rm = TRUE),
           violent = sum(violent_per_100k, na.rm = TRUE))
 
-new_data2 <-  new_data1 %>% 
-  gather(key="crimespot",value="crimetype2",rape,assault,robbery ,homicide)
-  
+# above code was helped by Avinash to get the filter data set in the right format. 
+#He is using same data set so seeked help.
+
+## Couple of classmates helped me in getting this filter data set and reactive
+#functanality set up.
 
 # crime choice for sum more wrangling
-
+#
 colnames(marshall_w)[8:13] <- c("pop", "violent", "homicide", "rape", "robbery", "assault")
 
 

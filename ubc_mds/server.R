@@ -1,10 +1,7 @@
 
-#
-
 
 shinyServer(function(input, output,session) {
-  
-  table2<-reactive({
+table2<-reactive({
     marshall_w %>%
       filter(year >= input$year[1],
              year <= input$year[2],
@@ -12,11 +9,9 @@ shinyServer(function(input, output,session) {
         select(year,department_name, homs_sum, rape_sum ,rob_sum ,agg_ass_sum, violent_crime,pop) %>% 
       rename(Year=year,City=department_name,Population=pop,Homicides=homs_sum,Rapes=rape_sum,
              Robbery=rob_sum,AggrevatedAssaults=agg_ass_sum)  
-
   })
   
   activeTab <- reactive({input$tabs})
-  
   output$dep <- renderUI({
     if (activeTab() != 'Regions') {
       selectInput("dep","Cities",unique(marshall$department_name),selected = "Cities") 
@@ -40,7 +35,6 @@ shinyServer(function(input, output,session) {
     response_variable = input$crime
     
     ### code starts here 
-    
     
     p <- marshall_w%>% 
       filter(year >= input$year[1], year <= input$year[2],
@@ -82,11 +76,11 @@ shinyServer(function(input, output,session) {
 
   
   ### Boxplot lives here 
-  
   output$boxplot <- renderPlotly({
 new_data1 %>% 
   filter(year >= input$year[1], year <= input$year[2],coast %in% input$usregions) %>% 
-  plot_ly( y = ~get(input$crime), color = ~coast, type = "box") 
+  plot_ly( y = ~get(input$crime), color = ~coast, type = "box") %>% 
+      layout(yaxis=list(title=input$crime))
   })  
   
 ### Box plot ends here 
@@ -97,7 +91,8 @@ new_data1 %>%
     filter(year >= input$year[1], year <= input$year[2],
            coast %in% input$usregions) %>% 
     plot_ly(x = ~year, y =   ~get(input$crime) , type = 'scatter', 
-            mode = "lines+markers", split = ~coast,  text = ~paste("Total Crime In "))
+            mode = "lines+markers", split = ~coast,  text = ~paste("Total Crime In ")) %>% 
+      layout(yaxis=list(title=input$crime))
   })  
   
 
@@ -118,9 +113,6 @@ new_data1 %>%
   output$Crimeresults <- renderDataTable({
     table2()
   })
-  
-  
-
   
   output$results <- renderTable(width = "800",{
     filtered <-

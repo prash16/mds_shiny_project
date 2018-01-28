@@ -41,14 +41,8 @@ shinyUI(fluidPage(theme = shinytheme("cosmo"),
                                
                                #tableOutput("results")), # first tab 
                       
-                      
                       tabPanel("City Specific", plotlyOutput("distPlot")),
                               ## plotlyOutput("barplot")), 
                       
-                      tabPanel("Data",  DT::dataTableOutput("Crimeresults")
-                      )
-                    )  
-                    )
-                    
-                  )
+              tabPanel("Data",  DT::dataTableOutput("Crimeresults") ) ) ) )
 ))
